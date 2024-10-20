@@ -247,7 +247,7 @@ class Linkedin(object):
                 f"flagshipSearchIntent:SEARCH_SRP,"
                 f"queryParameters:{default_params['filters']},"
                 f"includeFiltersInResponse:false))&queryId=voyagerSearchDashClusters"
-                f".b0928897b71bd00a5a7291755dcd64f0"
+                f".7e323a993aaa11dfaed2429df595a7cb"
             )
             data = res.json()
 
