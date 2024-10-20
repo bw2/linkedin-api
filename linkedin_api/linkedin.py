@@ -86,6 +86,7 @@ class Linkedin(object):
         evade()
 
         url = f"{self.client.API_BASE_URL if not base_request else self.client.LINKEDIN_BASE_URL}{uri}"
+        #print(url)
         return self.client.session.get(url, **kwargs)
 
     def _cookies(self):
@@ -247,10 +248,10 @@ class Linkedin(object):
                 f"flagshipSearchIntent:SEARCH_SRP,"
                 f"queryParameters:{default_params['filters']},"
                 f"includeFiltersInResponse:false))&queryId=voyagerSearchDashClusters"
-                f".b0928897b71bd00a5a7291755dcd64f0"
+                f".7e323a993aaa11dfaed2429df595a7cb"
             )
             data = res.json()
-
+            self.logger.debug(f"Data: {json.dumps(data, indent=4)}")
             data_clusters = data.get("data", {}).get("searchDashClustersByAll", [])
 
             if not data_clusters:
@@ -1454,7 +1455,12 @@ class Linkedin(object):
             headers={"accept": "application/vnd.linkedin.normalized+json+2.1"},
         )
 
-        return res.status_code != 201
+        if res.status_code != 201:
+            print(f"ERROR: status={res.status_code}: {json.dumps(res.json(), indent=2)}")
+
+        return res
+
+    
 
     def remove_connection(self, public_profile_id: str):
         """Remove a given profile as a connection.
